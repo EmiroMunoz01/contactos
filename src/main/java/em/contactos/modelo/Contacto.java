@@ -22,7 +22,7 @@ public class Contacto {
     Integer idContacto;
 
     String nombre;
-    Integer celular;
+    String celular;
     String email;
 
 }
