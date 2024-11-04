@@ -7,11 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import em.contactos.modelo.Contacto;
 import em.contactos.servicio.ContactoServicio;
-
 
 @Controller
 public class ContactoControlador {
@@ -41,14 +41,23 @@ public class ContactoControlador {
         return "agregar";
     }
 
-
     @PostMapping("/agregar")
-    public String agregar(@ModelAttribute("contactoForma") Contacto contacto){
+    public String agregar(@ModelAttribute("contactoForma") Contacto contacto) {
         contactoServicio.guardarContacto(contacto);
-        //de esta forma podremos ver los datos almacenamos en la base de datos, de lo contrario no podremos ver
-        return "redirect:/"; //rederigimos al controlador al path de inicio y nos recargara los datos agregados, nos llamara el metodo get
+        // de esta forma podremos ver los datos almacenamos en la base de datos, de lo
+        // contrario no podremos ver
+        return "redirect:/"; // rederigimos al controlador al path de inicio y nos recargara los datos
+                             // agregados, nos llamara el metodo get
     }
-    
-    
+
+    @GetMapping("/editar/{id}")
+    // con la variable modelmap compartiremos el objeto que vamos a editar
+    public String mostrarEditar(@PathVariable(value = "id") int idContacto, ModelMap modelo) {
+        Contacto contacto = contactoServicio.buscarContactoPorId(idContacto);
+        // compartimos el objeto con el modelo, para que la vista pueda acceder a la
+        // informacion, se comparte la llave y el nombre del objeto que se comparte
+        modelo.put("contacto", contacto);
+        return "editar";
+    }
 
 }
