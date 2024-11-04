@@ -60,4 +60,12 @@ public class ContactoControlador {
         return "editar";
     }
 
+    @PostMapping("/editar")
+    // es el th que esta en el formulario
+    public String editar(@ModelAttribute("contacto") Contacto contacto) {
+        contactoServicio.guardarContacto(contacto);
+        return "redirect:/"; // rederigimos al controlador al path de inicio y nos recargara los datos
+                             // agregados, nos llamara el metodo get
+    }
+
 }
