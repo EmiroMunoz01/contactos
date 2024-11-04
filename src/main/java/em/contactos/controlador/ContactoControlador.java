@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import em.contactos.modelo.Contacto;
 import em.contactos.servicio.ContactoServicio;
@@ -66,6 +67,19 @@ public class ContactoControlador {
         contactoServicio.guardarContacto(contacto);
         return "redirect:/"; // rederigimos al controlador al path de inicio y nos recargara los datos
                              // agregados, nos llamara el metodo get
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable(value = "id") int idContacto) {
+        Contacto contacto = new Contacto();
+        contacto.setIdContacto(idContacto);
+        contactoServicio.eliminarContacto(contacto);
+        return "redirect:/"; 
+    }
+
+    @PutMapping("path/{id}")
+    public void eliminar() {
+
     }
 
 }
